@@ -32,8 +32,6 @@ theme: minima
 plugins:
   - jekyll-feed
   - jekyll-seo-tag
-  - jekyll-remote-theme
-remote_theme: wild-flame/jekyll-simple
 
 # Exclude from processing.
 # The following items will not be processed, by default. Create a custom list

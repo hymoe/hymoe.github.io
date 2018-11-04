@@ -4,7 +4,7 @@ title: "基础算法：选择排序（python实现）"
 categories: algorithm
 permalink: 
 tags: 基础算法 选择排序
-excerpt: 使用python实现一个简单的排序算法，选择排序。
+excerpt: 使用python实现一个简单的排序算法，选择排序。同时进行性能优化。
 ---
 
 ## 算法原理

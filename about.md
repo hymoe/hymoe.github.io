@@ -4,15 +4,12 @@ title: About
 permalink: /about/
 ---
 
-This is the base Jekyll theme. You can find out more info about customizing your Jekyll theme, as well as basic Jekyll usage documentation at [jekyllrb.com](https://jekyllrb.com/)
+这是一个记录算法学习、新技术尝试和其他有意思内容的博客。通常可以在[hymoe的Github]上找到相关的项目源码。
 
-You can find the source code for Minima at GitHub:
-[jekyll][jekyll-organization] /
-[minima](https://github.com/jekyll/minima)
+作者是一名在校学生，因此许多内容还在学习和探索过程中，文章中可能有诸多错误，请多多包涵。
 
-You can find the source code for Jekyll at GitHub:
-[jekyll][jekyll-organization] /
-[jekyll](https://github.com/jekyll/jekyll)
+如需联系，可以在[本博客的项目]下新建一个[issue]。
 
-
-[jekyll-organization]: https://github.com/jekyll
+[hymoe的Github]: https://github.com/hymoe/
+[本博客的项目]: https://github.com/hymoe/hymoe.github.io
+[issue]: https://github.com/hymoe/hymoe.github.io/issues/new

@@ -25,6 +25,7 @@ author: hymoe
 lang: zh_CN
 rss: rss
 show_excerpts: true
+google_analytics: UA-128653976-1
 
 # Build settings
 markdown: kramdown

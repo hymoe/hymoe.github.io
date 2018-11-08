@@ -22,7 +22,6 @@ url: "https://hymoe.github.io" # the base hostname & protocol for your site, e.g
 twitter_username: 
 github_username:  hymoe
 author: hymoe
-lang: zh_CN
 rss: rss
 show_excerpts: true
 google_analytics: UA-128653976-1
@@ -33,6 +32,8 @@ theme: minima
 plugins:
   - jekyll-feed
   - jekyll-seo-tag
+sass:
+    style: compressed
 
 # Exclude from processing.
 # The following items will not be processed, by default. Create a custom list

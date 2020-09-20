@@ -17,7 +17,7 @@ title: Hymoe's Coding Blog
 email: hymoe#somewhere.edu
 description: >- # this means to ignore newlines until "baseurl:"
   Hymoe's Coding Blog including algorithm, new tech, and other interesting stuffs.
-baseurl: "" # the subpath of your site, e.g. /blog
+baseurl: "/" # the subpath of your site, e.g. /blog
 url: "https://hymoe.github.io" # the base hostname & protocol for your site, e.g. http://example.com
 twitter_username: 
 github_username:  hymoe

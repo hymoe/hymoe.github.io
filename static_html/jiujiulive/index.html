@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <title>JiuJiu Live</title>
+    <title>JiuJiu Live 2.0</title>
     <link rel="stylesheet" href="https://bootstrapstudio.io/demo//embed//bootstrap/4/material-portfolio/bootstrap.min.css">
     <link rel="stylesheet" href="https://bootstrapstudio.io/demo//embed/animation/animate.min.css" bs-system-element="" bs-hidden="">
     <link rel="stylesheet" href="https://bootstrapstudio.io/demo//embed/animation/aos.min.css" bs-system-element="" bs-hidden="">
@@ -17,12 +17,13 @@
     <link rel="stylesheet" bs-hidden="1" bs-system-element="1" href="https://bootstrapstudio.io/demo//embed/fonts/typicons.min.css">
     <link rel="stylesheet" href="https://bootstrapstudio.io/demo//embed/fonts/fontawesome5-overrides.min.css" bs-system-element="" bs-hidden="">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pikaday/1.6.1/css/pikaday.min.css?bsCacheToken=1600573350030">
+    <link href="https://vjs.zencdn.net/7.18.1/video-js.css" rel="stylesheet" />
     <style bs-system-element="" bs-hidden=""></style>
 </head>
 
 <body>
     <nav class="navbar navbar-dark navbar-expand-lg fixed-top bg-white portfolio-navbar gradient">
-        <div class="container"><a class="navbar-brand logo" href="#">JiuJiu Live</a><button data-toggle="collapse" data-target="#navbarNav" class="navbar-toggler"><span class="sr-only">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
+        <div class="container"><a class="navbar-brand logo" href="#">JiuJiu Live 2.0</a><button data-toggle="collapse" data-target="#navbarNav" class="navbar-toggler"><span class="sr-only">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="nav navbar-nav ml-auto">
                     <li class="nav-item"><a class="nav-link active" href="index.html">Home</a></li>
@@ -40,7 +41,26 @@
                 </div>
                 <div class="row">
                     <div class="col">
-                        <div class="artplayer-app" style="width: 100%; height: 800px;"></div>
+                        <video
+                            id="hymoe-player"
+                            class="video-js"
+                            controls
+                            preload="auto"
+                            width="640"
+                            height="360"
+                            poster="poster.jpeg"
+                            data-setup="{}"
+                            style="margin: 0 auto"
+                            >
+                            <source id = "hymoe-video" src="https://ppng.io/hymoeandjiujiu.mp4" type="video/mp4" />
+                            <p class="vjs-no-js">
+                                To view this video please enable JavaScript, and consider upgrading to a
+                                web browser that
+                                <a href="https://videojs.com/html5-video-support/" target="_blank"
+                                >supports HTML5 video</a
+                                >
+                            </p>
+                        </video>
                     </div>
                 </div>
             </div>
@@ -52,35 +72,51 @@
             <div class="social-icons "><a href="# "><i class="icon ion-social-facebook "></i></a><a href="# "><i class="icon ion-social-instagram-outline "></i></a><a href="# "><i class="icon ion-social-twitter "></i></a></div>
         </div>
     </footer>
-    <script src="https://cdn.jsdelivr.net/npm/artplayer/dist/artplayer.js"></script>
+    <script src="https://vjs.zencdn.net/7.18.1/video.min.js"></script>
     <script>
         const queryString = window.location.search;
         const urlParams = new URLSearchParams(queryString);
-        var videoName = urlParams.get('name')
+        var videoPathRaw = urlParams.get('path')
+        var videoPath = atob(videoPathRaw)
         var videoUrl = 'https://ppng.io/hymoeandjiujiu.mp4'
-        if (videoName) {
-            videoUrl = `https://ppng.io/${videoName}.mp4`
+        if (videoPathRaw) {
+            videoUrl = videoPath
         }
+        var inp=document.getElementById("hymoe-video"); 
+        inp.setAttribute("src",videoUrl);
+
+        const player = videojs('hymoe-player');
+        player.src({ type: 'video/mp4', src: videoUrl });
         
-        var art = new Artplayer({
-            container: '.artplayer-app',
-            url: videoUrl,
-            isLive: true,
-            setting: true,
-            fullscreen: true,
-            autoplay: true,
-            localSubtitle: true,
-            controls: [
-                {
-                    name: 'preview',
-                    position: 'right',
-                    html: 'OPEN SUBTITLE',
-                    mounted: ($preview) => {
-                        art.plugins.localSubtitle.attach($preview);
-                    },
-                },
-            ],
-        });
+        function controlPlayer(command) {
+            if(command.startsWith("pause")) {
+                player.pause()
+            } else if(command.startsWith("play")) {
+                player.play()
+            } else if(command.startsWith("fullscreen")) {
+                player.requestFullscreen()
+            } else if(command.startsWith("exitfullscreen")) {
+                player.exitFullscreen()
+            } else if(command.startsWith("fullwindow")) {
+                player.enterFullWindow()
+            } else if(command.startsWith("exitfullwindow")) {
+                player.exitFullWindow()
+            } else if(command.startsWith("time#")) {
+                player.currentTime(parseInt(command.split('#')[1], 10))
+            } else if(command.startsWith("source#")) {
+                player.src({type: 'video/mp4', src: command.split('#')[1]})
+            }
+        }
+
+        function getCommand() {
+            fetch("https://ppng.io/hymoeandjiujiucontrol", {
+                method: 'POST',
+                body: "Paused:" + player.paused().toString() + ', Time: ' + player.currentTime().toString() + '\n'
+            })
+            fetch("https://ppng.io/hymoeandjiujiucommand").then(a => a.text().then(controlPlayer));
+        }
+
+        setInterval("getCommand()",1000);
     </script>
 </body>
 
